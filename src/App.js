@@ -16,14 +16,14 @@ class App extends Component { //main head
             width = {100}
             height = {100}
          />
-          <h1 className="App-title">Parrot.io!?</h1>
+          <h1 className="App-title">Parrot.io!?!?</h1>
         </header>
         <p className="App-intro">
-          Want to Find a place to be :) ? Well you are in the right place!
+          Want to Find a place to be :) !? Well you are in the right place!
         </p>
 
-        <h3> Testing database </h3>
-        <h10> Insert Data Here </h10>
+        <h3> Testing database! </h3>
+        <h10> Insert Data Here! </h10>
 
 
         <form>
