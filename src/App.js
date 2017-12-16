@@ -8,16 +8,38 @@ import './App.css';
 
 
 class App extends Component { //main head
+  constructor(props){
+    super(props);
+    this.state = {
+      data: '',
+    }
+
+
+  }
+
+  updateNoteText(nText){
+    this.setState({ data: nText.target.value})
+  }
+
+  handleKeyPress = (event) => {
+    if (event.key === 'Enter'){
+
+    }
+  }
+
+
+
   render() {
     return (
-      <div className="App">
+      <div className="container">
+        <div className='header'>Parrot.io</div>
         <header className="App-header">
           <img src={require('./image/christmasparrot.gif') }
             width = {100}
             height = {100}
          />
-          <h1 className="App-title">Parrot.io</h1>
         </header>
+
         <p className="App-intro">
           Want to Find a place to be :> ? Well you are in the right place!
         </p>
@@ -25,6 +47,13 @@ class App extends Component { //main head
         <h3> Testing database! </h3>
         <h10> Insert Data Here! </h10>
 
+        <input type="text??"
+          ref={((inputz) => {this.textInputo = inputz})}
+          className = "textInputing"
+          value = {this.state.data}
+          onChangeText = {nText => this.updateNoteText(nText)}
+          onKeyPress = {this.handleKeyPress.bind(this)}
+        />
 
         <form>
           <textarea
@@ -34,19 +63,21 @@ class App extends Component { //main head
             ref = "Answer"
           />
           <button onClick = {this.handleSubmit}>Submit Answer</button>
-
         </form>
-        <Element
-          width = {100}
-          alignSelf = "center"
-          background="black"
-          backgroundOnHover="yellow"
-          color="yellow"
-          colorOnHover="red"
-          padding={10}
-          >
-          Dev
-        </Element>
+
+        <div className= 'btn'>
+          <Element
+            width = {100}
+            alignSelf = "center"
+            background="black"
+            backgroundOnHover="yellow"
+            color="yellow"
+            colorOnHover="red"
+            padding={10}
+            >
+            Dev
+          </Element>
+        </div>
 
 
       </div>
