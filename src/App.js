@@ -16,7 +16,7 @@ class App extends Component { //main head
             width = {100}
             height = {100}
          />
-          <h1 className="App-title">Parrot.iooooo</h1>
+          <h1 className="App-title">Parrot.io!</h1>
         </header>
         <p className="App-intro">
           Want to Find a place to be :) ? Well you are in the right place!
