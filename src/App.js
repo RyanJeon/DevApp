@@ -86,15 +86,18 @@ class App extends Component { //main head
           onKeyPress = {this.handleKeyPress.bind(this)}
         />
 
-        <form>
-          <textarea
-            placeholder="Type in your answer "
-            cols = "100"
-            rows =  "10"
-            ref = "Answer"
-          />
-          <button onClick = {this.handleSubmit}>Submit Answer</button>
-        </form>
+        <div className = 'answer'>
+            <textarea
+              placeholder="What did you think of the experience?"
+              rows = {10}
+              cols = {100}
+              ref = "Answer"
+            />
+            <div className = 'answer_b'>
+              <button onClick = {this.handleSubmit}>Submit Answer</button>
+            </div>
+        </div>
+
 
         <div className= 'btn' onClick = {this.addNote.bind(this)}>
           <Element

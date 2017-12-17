@@ -81,3 +81,15 @@ body {
   font-size: 16px;
   color: #f1f1f1;
 }
+
+/* Answer */
+.answer {
+  padding-left: 400px;
+  padding-top: 100px;
+  right: 40px;
+  bottom: 400px;
+}
+
+.answer_b{
+  padding-left: 300px;
+}
