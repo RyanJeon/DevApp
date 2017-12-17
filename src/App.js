@@ -35,7 +35,7 @@ class App extends Component { //main head
   }
 
   handleSubmit(){
-    //console.log('Success!');
+    //  console.log('Success!');
     this.setState({ code: 'Hi :)'});
     //this.answers.focus();
   }
@@ -90,16 +90,7 @@ class App extends Component { //main head
 
         <div className = 'answer'>
             <h3> {this.state.code} </h3>
-            <textarea
-              className = "answers"
-              placeholder="What did you think of the experience?"
-              rows = {10}
-              cols = {100}
-              ref = "Answer"
-            />
-            <div className = 'answer_b'>
-              <button onClick = {this.handleSubmit.bind(this)}>Submit Answer</button>
-            </div>
+            <button onClick = {this.handleSubmit.bind(this)}>Submit Answer</button>
         </div>
 
 

@@ -84,12 +84,13 @@ body {
 
 /* Answer */
 .answer {
-  padding-left: 400px;
-  padding-top: 100px;
-  right: 40px;
+  padding-left: 30%;
+  padding-top: 10%;
+  rows: 100px;
   bottom: 400px;
 }
 
 .answer_b{
-  padding-left: 300px;
+  padding-left: 30%;
+  padding-top: 10%;
 }
