@@ -35,6 +35,7 @@ class App extends Component { //main head
   }
 
   handleSubmit(){
+    //console.log('Success!');
     this.setState({ code: 'Hi :)'});
     //this.answers.focus();
   }
