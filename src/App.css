@@ -19,12 +19,13 @@ body {
 }
 /* The header */
 .header {
+  text-align: center;
   font-size: 22px;
   font-weight: bold;
   font-style: italic;
   color: #f1f1f1;
-  background: #3367d6;
-  padding: 40px;
+  background: black;
+  padding: 10px;
 }
 /* The note */
 .note {
@@ -67,7 +68,7 @@ body {
   transform: scale(1.2);
 }
 /* Textinput */
-.textInputo {
+.textInput {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -76,7 +77,7 @@ body {
   padding: 0 20px;
   border: none;
   outline: none;
-  background: #2850a7;
+  background: black;
   font-size: 16px;
   color: #f1f1f1;
 }
