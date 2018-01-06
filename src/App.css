@@ -47,7 +47,7 @@ body {
 .btn {
   position: fixed;
   z-index: 1;
-  right: 40px;
+  right: 250px;
   bottom: 40px;
   width: 80px;
   height: 80px;
@@ -82,10 +82,19 @@ body {
   color: #f1f1f1;
 }
 
+/*Textinput that will handle username and password*/
+.upInput{
+  top: 10;
+  position: fixed;
+  padding: 10;
+  width:2;
+  height: 5%; /*adjustable*/
+}
+
 /* Answer */
 .answer {
-  padding-left: 30%;
-  padding-top: 10%;
+  padding-left: 2%;
+  padding-top: 2%;
   rows: 100px;
   bottom: 400px;
 }

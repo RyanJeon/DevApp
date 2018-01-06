@@ -11,6 +11,14 @@ class App extends Component { //main head
   constructor(props){
     super(props);
     this.state = {
+      welcome_text: 'Please Login Below',
+
+      username: '',
+      password: '',
+
+      user_: '',
+      pass_: '',
+
       data: '',
       notes: [],
       code: 'Testing Database',
@@ -19,6 +27,8 @@ class App extends Component { //main head
 
   }
 
+
+  //Will Handle comments
   updateNoteText(nText){
     this.setState({ data: nText.target.value})
   }
@@ -40,6 +50,8 @@ class App extends Component { //main head
     //this.answers.focus();
   }
 
+  //^^Handle comments
+
 
   deleteNote(index){
     let notesArr = this.state.notes;
@@ -55,6 +67,23 @@ class App extends Component { //main head
     this.setState({ data: ''});
     this.textInput.focus(); //refocus to the textarea
   }
+
+  updatePassword(text){
+    this.setState({password: text.target.value})
+  }
+
+  updateUsername(text){
+    this.setState({username: text.target.value})
+  }
+
+  updateInformation(){
+    if (this.state.username === '' || this.state.password === '') {return false}
+
+    this.setState({user_: this.state.username, pass_: this.state.password})
+    this.setState({welcome_text: 'Welcome!', username: '', password: ''}) //reset the textx
+    this.username.focus();
+  }
+
 
 
 
@@ -90,21 +119,44 @@ class App extends Component { //main head
 
         <div className = 'answer'>
             <h3> {this.state.code} </h3>
-            <button onClick = {this.handleSubmit.bind(this)}>Submit Answer</button>
-        </div>
+            <h3> _______________</h3>
+            <h2> {this.state.welcome_text} </h2>
+            <h4> {this.state.user_} </h4>
+            <h4> {this.state.pass_} </h4>
 
+            <h3> Username </h3>
+
+            <input type = "text"
+                  className = "username"
+                   ref = {((input) => {this.username  = input})}
+                   value = {this.state.username}
+                   onChange = {text => this.updateUsername(text)}
+            />
+            <h3> Password </h3>
+            <input type = "text"
+              className = "password"
+               ref = {((input) => {this.password  = input})}
+               value = {this.state.password}
+               onChange = {text => this.updatePassword(text)}
+            />
+
+            <button onClick = {this.updateInformation.bind(this)}>
+              Register
+            </button>
+
+        </div>
 
         <div className= 'btn' onClick = {this.addNote.bind(this)}>
           <Element
-            width = {100}
+            width = {300}
             alignSelf = "center"
-            background="black"
-            backgroundOnHover="yellow"
-            color="yellow"
-            colorOnHover="red"
+            background="blue"
+            backgroundOnHover="light blue"
+            color="white"
+            colorOnHover="white"
             padding={10}
             >
-            Add
+            Add Comment
           </Element>
         </div>
 
