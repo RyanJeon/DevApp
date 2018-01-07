@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import {Element} from 'react-stylesheet';
 import './App.css';
 import Note from './components/Note'
+import _ from 'lodash';
+import {connect} from 'react-redux';
+import {getPosts} from './Actions/PostActions';
+import {Field, reduxForm, reset} from 'redux-form';
 
 
 
@@ -11,7 +15,11 @@ class App extends Component { //main head
   constructor(props){
     super(props);
     this.state = {
+      posts: {'Lol': {title: 'Title', body: 'body'}},
+
       welcome_text: 'Please Login Below',
+
+      user_interface:  [],
 
       username: '',
       password: '',
@@ -25,6 +33,21 @@ class App extends Component { //main head
     }
 
 
+  }
+
+  componentWillMount(){
+    this.props.getPosts();
+  }
+
+  renderPosts(){
+    return _.map(this.props.posts, (post, key) => {
+      return(
+        <div key={key}>
+          <h3>{post.title}</h3>
+          <p>{post.body}</p>
+        </div>
+      );
+    });
   }
 
 
@@ -54,9 +77,12 @@ class App extends Component { //main head
 
 
   deleteNote(index){
+
     let notesArr = this.state.notes;
     notesArr.splice(index, 1);
     this.setState({ notes: notesArr })
+
+
   }
 
   addNote(){
@@ -107,7 +133,6 @@ class App extends Component { //main head
               height = {30}
            />
         </div>
-        {notes}
 
         <input type="text" //text
           ref={((input) => {this.textInput = input})}
@@ -124,9 +149,12 @@ class App extends Component { //main head
             <h4> {this.state.user_} </h4>
             <h4> {this.state.pass_} </h4>
 
+            {this.renderPosts()}
+
             <h3> Username </h3>
 
             <input type = "text"
+                  placeholder = "username"
                   className = "username"
                    ref = {((input) => {this.username  = input})}
                    value = {this.state.username}
@@ -135,16 +163,20 @@ class App extends Component { //main head
             <h3> Password </h3>
             <input type = "text"
               className = "password"
+              placeholder = "password"
                ref = {((input) => {this.password  = input})}
                value = {this.state.password}
                onChange = {text => this.updatePassword(text)}
             />
 
-            <button onClick = {this.updateInformation.bind(this)}>
-              Register
-            </button>
-
+            <div>
+              <button onClick = {this.updateInformation.bind(this)}>
+                Register
+              </button>
+            </div>
         </div>
+
+        {notes}
 
         <div className= 'btn' onClick = {this.addNote.bind(this)}>
           <Element
@@ -168,6 +200,12 @@ class App extends Component { //main head
   }
 }
 
+let form = reduxForm({
+  form: 'NewPost'
+})(App);
 
+form = connect(state => ({
+  posts: state.posts
+}), {getPosts} )(form);
 
-export default App;
+export default form;
