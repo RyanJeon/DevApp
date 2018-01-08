@@ -42,10 +42,14 @@ class App extends Component { //main head
   renderPosts(){
     return _.map(this.props.posts, (post, key) => {
       return(
-        <div key={key}>
+        <div className = "note"
+              //onClick = {this.props.deletePost(key)}
+          key={key}>
           <h3>{post.name}</h3>
           <p>{post.body}</p>
-          <button onClick = {() => this.props.deletePost(key)}> Delete </button>
+          <button onClick = {() => this.props.deletePost(key)}>
+             Delete
+          </button>
         </div>
       );
     });
@@ -194,10 +198,13 @@ class App extends Component { //main head
         </div>
 
 
-
         <div className = "commentS">
           <h3 padding = {100}>Enter Your Comments!</h3>
           <h3> _____________ </h3>
+        </div>
+
+        <div className = "">
+
           <div>
             {this.renderPosts()}
           </div>
