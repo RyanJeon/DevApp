@@ -4,7 +4,7 @@ import './App.css';
 import Note from './components/Note'
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import {getPosts} from './Actions/PostActions';
+import {getPosts, savePost, deletePost} from './Actions/PostActions';
 import {Field, reduxForm, reset} from 'redux-form';
 
 
@@ -15,7 +15,6 @@ class App extends Component { //main head
   constructor(props){
     super(props);
     this.state = {
-      posts: {'Lol': {title: 'Title', body: 'body'}},
 
       welcome_text: 'Please Login Below',
 
@@ -35,6 +34,7 @@ class App extends Component { //main head
 
   }
 
+  //comment
   componentWillMount(){
     this.props.getPosts();
   }
@@ -43,10 +43,26 @@ class App extends Component { //main head
     return _.map(this.props.posts, (post, key) => {
       return(
         <div key={key}>
-          <h3>{post.title}</h3>
+          <h3>{post.name}</h3>
           <p>{post.body}</p>
+          <button onClick = {() => this.props.deletePost(key)}> Delete </button>
         </div>
       );
+    });
+  }
+
+  renderField(field){
+    return (
+      <input type = "text" {...field.input} placeholder = {'Please Enter a ' + field.label}/>
+    )
+  }
+
+  ////
+
+  renderNotes(){
+    return this.state.notes.map( (val, key) => {
+      return (<Note key={key} text={val}
+                deleteMethod = { () => this.deleteNote(key) } />);
     });
   }
 
@@ -88,8 +104,11 @@ class App extends Component { //main head
   addNote(){
     if (this.state.data === '') {return false}
 
+    //let notesArr = this.state.notes;
+    //notesArr.push(this.state.data);
     let notesArr = this.state.notes;
     notesArr.push(this.state.data);
+
     this.setState({ data: ''});
     this.textInput.focus(); //refocus to the textarea
   }
@@ -110,15 +129,15 @@ class App extends Component { //main head
     this.username.focus();
   }
 
+  onSubmit(values){
+    this.props.savePost(values).then(this.props.dispatch(reset('NewPost')));
+  }
 
 
 
   render() {
 
-    let notes = this.state.notes.map((val, key) => {
-      return <Note key={key} text={val}
-                deleteMethod = { () => this.deleteNote(key) } />
-    })
+    const {handleSubmit} = this.props;
 
     return (
       <div className="container">
@@ -149,8 +168,6 @@ class App extends Component { //main head
             <h4> {this.state.user_} </h4>
             <h4> {this.state.pass_} </h4>
 
-            {this.renderPosts()}
-
             <h3> Username </h3>
 
             <input type = "text"
@@ -164,9 +181,9 @@ class App extends Component { //main head
             <input type = "text"
               className = "password"
               placeholder = "password"
-               ref = {((input) => {this.password  = input})}
-               value = {this.state.password}
-               onChange = {text => this.updatePassword(text)}
+              ref = {((input) => {this.password  = input})}
+              value = {this.state.password}
+              onChange = {text => this.updatePassword(text)}
             />
 
             <div>
@@ -176,7 +193,32 @@ class App extends Component { //main head
             </div>
         </div>
 
-        {notes}
+
+
+        <div className = "commentS">
+          <h3 padding = {100}>Enter Your Comments!</h3>
+          <h3> _____________ </h3>
+          <div>
+            {this.renderPosts()}
+          </div>
+          <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+            <Field
+              name = "name"
+              component ={this.renderField}
+              label = "Name"
+              class = "" //css
+            />
+            <Field
+              name = "body"
+              component ={this.renderField}
+              label = "Body"
+              class = "" //css
+            />
+            <button type="submit">Post</button>
+          </form>
+        </div>
+
+        {this.renderNotes()}
 
         <div className= 'btn' onClick = {this.addNote.bind(this)}>
           <Element
@@ -192,6 +234,8 @@ class App extends Component { //main head
           </Element>
         </div>
 
+
+
       </div>
 
 
@@ -206,6 +250,6 @@ let form = reduxForm({
 
 form = connect(state => ({
   posts: state.posts
-}), {getPosts} )(form);
+}), {getPosts, savePost, deletePost} )(form);
 
 export default form;

@@ -11,3 +11,11 @@ export function getPosts(){
     })
   }
 }
+
+export function savePost(values){
+  return dispatch => database.push(values);
+}
+
+export function deletePost(id){
+  return dispatch => database.child(id).remove();
+}
