@@ -30,7 +30,7 @@ export default class CreateAccount extends Component{
   render(){
     return(
       <div>
-        <LoginBox body = {this.renderBody()} title = "Create Account"/>
+        <LoginBox body = {this.renderBody()} title = "Create Account" link = '/Login' {...this.props}/>
       </div>
     )
 

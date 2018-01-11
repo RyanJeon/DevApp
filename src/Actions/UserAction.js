@@ -3,11 +3,11 @@ export const GET_USER = 'get_user';
 
 export function getUser(){
   return dispatch => {
-    auth.onAuthStateChange(user => {
+    auth.onAuthStateChanged(user => {
       dispatch({
-        type: 'get_user',
+        type: GET_USER,
         payload: user
       })
     })
-  }
+  };
 }

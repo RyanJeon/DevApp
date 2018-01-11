@@ -7,6 +7,7 @@ import {getPosts, savePost, deletePost} from '../Actions/PostActions';
 import {Field, reduxForm, reset} from 'redux-form';
 import PostCard from '../components/PostCard';
 import {getUser} from '../Actions/UserAction';
+import SignInB from '../components/signinb';
 
 
 
@@ -23,13 +24,17 @@ class App extends Component { //main head
 
   }
 
-  componentWillRecieveProps(nextProps){
-    console.log(nextProps);
+  componentWillReceiveProps(nextProps){
+    if(nextProps.user.loading === false && this.props.user.email === undefined){
+      console.log('Not logged in');
+      //this.props.history.replace('./Login');
+    }
   }
 
   //comment
   componentWillMount(){
     this.props.getPosts();
+    this.props.getUser();
   }
 
   renderPosts(){
@@ -70,7 +75,6 @@ class App extends Component { //main head
 
 
   render() {
-
     const {handleSubmit} = this.props;
 
     return (
@@ -86,6 +90,10 @@ class App extends Component { //main head
               width = {30}
               height = {30}
            />
+
+           <div className = "SignInWrapper"> 
+             <SignInB otherLabel = "Sign In" gotoLink = './Login' {...this.props}/>
+           </div>
         </div>
 
 
@@ -128,7 +136,7 @@ let form = reduxForm({
   form: 'NewPost'
 })(App);
 
-form = connect((state, onProps) => ({
+form = connect((state, ownProps) => ({
   posts: state.posts,
   user: state.user
 }), {getPosts, savePost, deletePost, getUser} )(form);

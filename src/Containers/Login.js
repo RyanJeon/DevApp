@@ -30,6 +30,8 @@ export default class Login extends Component{
       <div>
         <LoginBox title = "Sign In"
                   body = {this.renderBody()}
+                  link = '/ListPost'
+                  {...this.props}
                   /*footer = "Sick"*//>
       </div>
     )
