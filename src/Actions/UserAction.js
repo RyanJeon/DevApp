@@ -11,3 +11,11 @@ export function getUser(){
     })
   };
 }
+
+export function login(email, password){
+  return dispatch => auth.signInWithEmailAndPassword(email, password);
+}
+
+export function logout(){
+  return dispatch => auth.signOut();
+}

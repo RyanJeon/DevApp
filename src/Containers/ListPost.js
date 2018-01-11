@@ -6,8 +6,10 @@ import {connect} from 'react-redux';
 import {getPosts, savePost, deletePost} from '../Actions/PostActions';
 import {Field, reduxForm, reset} from 'redux-form';
 import PostCard from '../components/PostCard';
-import {getUser} from '../Actions/UserAction';
+import {getUser, logout} from '../Actions/UserAction';
 import SignInB from '../components/signinb';
+import Modal from 'react-modal'
+import Login from '../components/Login';
 
 
 
@@ -17,6 +19,7 @@ class App extends Component { //main head
     super(props);
     this.state = {
 
+      modalOpen: true,
       user_interface:  [],
 
     }
@@ -35,6 +38,10 @@ class App extends Component { //main head
   componentWillMount(){
     this.props.getPosts();
     this.props.getUser();
+    //if(nextProps.user.loading === false && this.props.user.email === undefined){
+    //  console.log('Not logged in');
+      //this.props.history.replace('./Login');
+  //  }
   }
 
   renderPosts(){
@@ -60,7 +67,7 @@ class App extends Component { //main head
 
   handleSubmit(){
     //  console.log('Success!');
-    this.setState({ code: 'Hi :)'});
+      this.setState({ code: 'Hi :)'});
     //this.answers.focus();
   }
 
@@ -72,10 +79,24 @@ class App extends Component { //main head
     this.props.savePost(values).then(this.props.dispatch(reset('NewPost')));
   }
 
+  closeModal(){
+    this.setState({modalOpen: false});
+  }
+
 
 
   render() {
     const {handleSubmit} = this.props;
+    const SignInModal = {
+      content : {
+        top                   : '30%',
+        left                  : '50%',
+        right                 : '65%',
+        bottom                : '30%',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
 
     return (
       <div className="container">
@@ -91,10 +112,24 @@ class App extends Component { //main head
               height = {30}
            />
 
-           <div className = "SignInWrapper"> 
+           <div className = "SignInWrapper">
              <SignInB otherLabel = "Sign In" gotoLink = './Login' {...this.props}/>
            </div>
         </div>
+        <div className = "navbar">
+          <button className = "btn btn-danger"
+                  onClick = {() => {this.props.logout()}}
+            >Log Out </button>
+        </div>
+
+        <Modal
+          isOpen = {this.state.modalOpen}
+          style = {SignInModal}
+        >
+          <button onClick = {this.closeModal.bind(this)} >Back</button>
+          <Login {...this.props}/>
+
+        </Modal>
 
 
         <div className = "commentS">
@@ -132,6 +167,8 @@ class App extends Component { //main head
   }
 }
 
+
+
 let form = reduxForm({
   form: 'NewPost'
 })(App);
@@ -139,6 +176,6 @@ let form = reduxForm({
 form = connect((state, ownProps) => ({
   posts: state.posts,
   user: state.user
-}), {getPosts, savePost, deletePost, getUser} )(form);
+}), {getPosts, savePost, deletePost, getUser, logout} )(form);
 
 export default form;

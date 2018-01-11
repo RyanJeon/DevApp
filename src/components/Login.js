@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import LoginBox from '../components/LoginBox';
-import InputField from '../components/InputField';
-import FooterButton from '../components/FooterFormButton';
+import LoginBox from './LoginBox';
+import InputField from './InputField';
+import FooterButton from './/FooterFormButton';
 import { login, getUser} from '../Actions/UserAction';
 import {connect } from 'react-redux';
 
@@ -18,11 +18,11 @@ class Login extends Component{
     this.props.getUser();
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.user.email !== undefined ){
-      this.props.history.push('/');
-    }
-  }
+  //componentWillReceiveProps(nextProps){
+  //  if(nextProps.user.email !== undefined ){
+  //    this.props.history.push('/');
+  //  }
+  //}
 
   submitLogin(event){
     event.preventDefault();
@@ -40,7 +40,6 @@ class Login extends Component{
           inputAction = {(event) => this.setState({password : event.target.value})}/>
           <FooterButton submitLabel = "Sign in" otherLabel = "Create Account" gotoLink = "/CreateAccount"
           {...this.props}/>
-
           </div>
     </form>
     );

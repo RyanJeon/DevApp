@@ -6,10 +6,6 @@ export default class LoginBox extends Component{
       const {title, body, footer, link} = this.props;
       return(
         <div className = "container">
-          <div className = "d-flex justify-content-center align-self-center">
-            <div className = "card col-sm-6">
-              <div className = "card-block">
-                <BackButton  gotoLink = {link} {...this.props}/>
                 <div className = "card-title text-center">
                   {title}
                 </div>
@@ -19,9 +15,6 @@ export default class LoginBox extends Component{
                 {footer && <div className = "card-footer">
                   {footer}
                 </div>}
-              </div>
-            </div>
-          </div>
         </div>
       )
     }
